@@ -83,10 +83,10 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-//        System.out.println("-----------冒泡排序------------");
-//        printArray(bubbleSort());
-//        System.out.println("-----------选择排序------------");
-//        printArray(simpleChooseSort());
+        System.out.println("-----------冒泡排序------------");
+        printArray(bubbleSort());
+        System.out.println("-----------选择排序------------");
+        printArray(simpleChooseSort());
         System.out.println("-----------直接插入排序------------");
         printArray(straightInsertSort());
     }
