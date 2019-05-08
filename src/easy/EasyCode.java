@@ -1,16 +1,12 @@
 package easy;
 
-import sun.security.util.Length;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class EasyCode {
     public static void main(String[] args) {
         //addTwoNumbers
-       /* ListNode l1 = new ListNode(2);
+        ListNode l1 = new ListNode(2);
         l1.next = new ListNode(4);
         l1.next.next = new ListNode(3);
 
@@ -21,7 +17,7 @@ public class EasyCode {
         ListNode result = addTwoNumbers(l1, l2);
         System.out.println(result.val + "" + result.next.val + "" + result.next.next.val);
 
-        System.out.println(reverse(-123));*/
+        System.out.println(reverse(-123));
 
         System.out.println(myAtoi("-91283472332"));
 
@@ -102,7 +98,7 @@ public class EasyCode {
     public static int reverse(int x) {
         StringBuffer result = new StringBuffer();
         boolean flag = false;
-        if(x==0 || x>=Integer.MAX_VALUE || x <= Integer.MIN_VALUE){
+        if (x == 0 || x >= Integer.MAX_VALUE || x <= Integer.MIN_VALUE) {
             return 0;
         }
         if (x < 0) {
@@ -118,7 +114,7 @@ public class EasyCode {
         try {
             if (flag) {
                 number = Integer.valueOf(result.toString()).intValue() * -1;
-            }else{
+            } else {
                 number = Integer.valueOf(result.toString()).intValue();
             }
         } catch (Exception e) {
@@ -127,67 +123,70 @@ public class EasyCode {
         return number;
     }
 
-    public static  int lengthOfLongestSubstring(String s) {
-        StringBuffer sb =  new StringBuffer();
+    public static int lengthOfLongestSubstring(String s) {
+        StringBuffer sb = new StringBuffer();
         int max = 0;
-        for(int i=0;i<s.length();i++){
-            int position = sb.indexOf(s.charAt(i)+"");
-            if(position == -1){
+        for (int i = 0; i < s.length(); i++) {
+            int position = sb.indexOf(s.charAt(i) + "");
+            if (position == -1) {
                 sb.append(s.charAt(i));
-                max = Math.max(max,sb.length());
+                max = Math.max(max, sb.length());
                 System.out.println(sb.toString());
-            }else{
-                sb = new StringBuffer(sb.substring(position+1)+s.charAt(i)+"");
-                System.out.println(sb.toString()+"---");
+            } else {
+                sb = new StringBuffer(sb.substring(position + 1) + s.charAt(i) + "");
+                System.out.println(sb.toString() + "---");
             }
         }
         return max;
 
     }
 
+    /**
+     * leetcode 第8题，字符串转整数
+     */
     public static int myAtoi(String str) {
-        Long sum =0L;
-        int flag =1;
-        int start =0;
+        Long sum = 0L;
+        int flag = 1;
+        int start = 0;
         char[] array = str.toCharArray();
-        for(int i=0;i<str.length();i++){
-            if(start==i && array[i]==' '){
+        for (int i = 0; i < str.length(); i++) {
+            if (start == i && array[i] == ' ') {
                 start++;
                 continue;
             }
-            if(array[i]=='-') {
-                if(i+1 ==str.length() || !isNumber(array[i+1])){
+            if (array[i] == '-') {
+                if (i + 1 == str.length() || !isNumber(array[i + 1])) {
                     break;
                 }
                 flag = -1;
                 continue;
             }
-            if(array[i]=='+'){
-                if(i+1 ==str.length() || !isNumber(array[i+1])){
+            if (array[i] == '+') {
+                if (i + 1 == str.length() || !isNumber(array[i + 1])) {
                     break;
                 }
                 continue;
             }
-            if(isNumber(array[i])){
-                sum = sum *10+(array[i]-'0');
-                if(flag ==1 && sum >= Integer.MAX_VALUE){
+            if (isNumber(array[i])) {
+                sum = sum * 10 + (array[i] - '0');
+                if (flag == 1 && sum >= Integer.MAX_VALUE) {
                     return Integer.MAX_VALUE;
                 }
-                if(flag == -1 && sum*flag <= Integer.MIN_VALUE){
+                if (flag == -1 && sum * flag <= Integer.MIN_VALUE) {
                     return Integer.MIN_VALUE;
                 }
-                if(i+1 ==str.length() || !isNumber(array[i+1])){
+                if (i + 1 == str.length() || !isNumber(array[i + 1])) {
                     break;
                 }
-            }else{
+            } else {
                 break;
             }
         }
         return sum.intValue();
     }
 
-    public static boolean isNumber(char a){
-        if(a >= '0' && a <= '9'){
+    public static boolean isNumber(char a) {
+        if (a >= '0' && a <= '9') {
             return true;
         }
         return false;
