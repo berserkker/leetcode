@@ -84,4 +84,86 @@ public class ProgramCode {
         }
         return true;
     }
+
+    /**
+     * 旋转数组
+     * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+     *
+     * 示例 1:
+     *
+     * 输入: [1,2,3,4,5,6,7] 和 k = 3
+     * 输出: [5,6,7,1,2,3,4]
+     * 解释:
+     * 向右旋转 1 步: [7,1,2,3,4,5,6]
+     * 向右旋转 2 步: [6,7,1,2,3,4,5]
+     * 向右旋转 3 步: [5,6,7,1,2,3,4]
+     * 示例 2:
+     *
+     * 输入: [-1,-100,3,99] 和 k = 2
+     * 输出: [3,99,-1,-100]
+     * 解释:
+     * 向右旋转 1 步: [99,-1,-100,3]
+     * 向右旋转 2 步: [3,99,-1,-100]
+     * 说明:
+     *
+     * 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
+     * 要求使用空间复杂度为 O(1) 的原地算法。
+     * */
+    /**
+     * 解法，翻转，先整体翻转，再分别以k分割成两个数组，分别翻转，保证数组顺序
+     * */
+    public void rotate(int[] nums, int k) {
+        int length = nums.length;
+        k %= length;
+        reverse(nums, 0, length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, length - 1);
+    }
+
+    /**
+     * 双重循环
+     * 时间复杂度：O(kn)
+     * 空间复杂度：O(1)
+     */
+    public void rotate_1(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;
+        for (int i = 0; i < k; i++) {
+            int temp = nums[n - 1];
+            for (int j = n - 1; j > 0; j--) {
+                nums[j] = nums[j - 1];
+            }
+            nums[0] = temp;
+        }
+    }
+
+    /**
+     * 反转数组
+     * */
+    public void reverse(int[] nums, int left,int right){
+        while(left < right){
+            int temp = nums[left];
+            nums[left] = nums[right];
+            left++;
+            nums[right] = temp;
+            right--;
+        }
+    }
+
+    /**
+     *给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+     *
+     * 示例 1：
+     *
+     * 输入: "babad"
+     * 输出: "bab"
+     * 注意: "aba" 也是一个有效答案。
+     * 示例 2：
+     *
+     * 输入: "cbbd"
+     * 输出: "bb"
+     * */
+    public String longestPalindrome(String s) {
+
+    }
 }
