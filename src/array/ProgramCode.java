@@ -1,6 +1,5 @@
 package array;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,32 +53,32 @@ public class ProgramCode {
     }
 
     /**
-     *   存在重复
+     * 存在重复
      * 给定一个整数数组，判断是否存在重复元素。
-     *
+     * <p>
      * 如果任何值在数组中出现至少两次，函数返回 true。如果数组中每个元素都不相同，则返回 false。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: [1,2,3,1]
      * 输出: true
      * 示例 2:
-     *
+     * <p>
      * 输入: [1,2,3,4]
      * 输出: false
      * 示例 3:
-     *
+     * <p>
      * 输入: [1,1,1,3,3,4,3,2,4,2]
      * 输出: true
-     * */
+     */
     public boolean containsDuplicate(int[] nums) {
         Set set = new HashSet();
-        for(int i:nums){
-            if(!set.add(i)){
+        for (int i : nums) {
+            if (!set.add(i)) {
                 return true;
             }
         }
-        if(set.size() == nums.length){
+        if (set.size() == nums.length) {
             return false;
         }
         return true;
@@ -111,7 +110,7 @@ public class ProgramCode {
      * */
     /**
      * 解法，翻转，先整体翻转，再分别以k分割成两个数组，分别翻转，保证数组顺序
-     * */
+     */
     public void rotate(int[] nums, int k) {
         int length = nums.length;
         k %= length;
@@ -139,9 +138,9 @@ public class ProgramCode {
 
     /**
      * 反转数组
-     * */
-    public void reverse(int[] nums, int left,int right){
-        while(left < right){
+     */
+    public void reverse(int[] nums, int left, int right) {
+        while (left < right) {
             int temp = nums[left];
             nums[left] = nums[right];
             left++;
@@ -151,19 +150,56 @@ public class ProgramCode {
     }
 
     /**
-     *给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
-     *
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+     * <p>
      * 示例 1：
-     *
+     * <p>
      * 输入: "babad"
      * 输出: "bab"
      * 注意: "aba" 也是一个有效答案。
      * 示例 2：
-     *
+     * <p>
      * 输入: "cbbd"
      * 输出: "bb"
-     * */
+     */
     public String longestPalindrome(String s) {
 
+        //判空
+        if (s == null || s.length() < 1) return "";
+
+        //回文字符子串的开始和结束
+        int start = 0, end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            //分两种情况，看哪一种为中心的值最大
+
+            //以一个字符作为中心的时候，例如aba，以b为中心
+            int one = expandCenter(s, i, i);
+            //以两个字符作为中心的时候，例如abba，以bb为中心
+            int two = expandCenter(s, i, i + 1);
+
+            //得出一个大的值
+            int big = Math.max(one, two);
+
+            //如果比之前的长度长，那就换成最长的，不然继续循环
+            if (big > end - start) {
+                //中心往左边
+                start = i - (big - 1) / 2;
+                //中心往右边
+                end = i + big / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    /**
+     * 中心扩散，如果两个一样，各自往旁边扩散一位，还一样就继续扩散
+     */
+    public int expandCenter(String s, int left, int right) {
+        int l = left, r = right;
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return r - l - 1;
     }
 }
